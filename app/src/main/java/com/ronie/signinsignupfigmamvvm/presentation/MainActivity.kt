@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                 
                 NavHost(
                     navController = navController,
-                    startDestination = Routes.SignInView.route
+                    startDestination = Routes.SignUpView.route
                 ) {
                     composable(route = Routes.SignInView.route) {
                         SignInView(navController, authViewModel)

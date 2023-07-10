@@ -3,10 +3,6 @@ package com.ronie.signinsignupfigmamvvm.presentation.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.ScrollableDefaults
-import androidx.compose.foundation.gestures.ScrollableState
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,10 +16,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ronie.signinsignupfigmamvvm.R
+import com.ronie.signinsignupfigmamvvm.core.sealed.Routes
 import com.ronie.signinsignupfigmamvvm.presentation.ui.theme.Blue
 import com.ronie.signinsignupfigmamvvm.presentation.ui.theme.BlueCyan
 import com.ronie.signinsignupfigmamvvm.presentation.view_model.AuthViewModel
@@ -65,7 +60,7 @@ fun SignInView(
             .fillMaxSize()
     ) {
         TopSection()
-        LoginSection()
+        LoginSection(navController)
         Text(
             text = "OU",
             modifier = Modifier.fillMaxWidth(),
@@ -155,7 +150,7 @@ private fun SocialSection() {
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-private fun LoginSection() {
+private fun LoginSection(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -163,12 +158,12 @@ private fun LoginSection() {
         Text(
             text = "Login",
             fontSize = 20.sp,
+            modifier = Modifier.padding(start = 10.dp, bottom = 10.dp),
             fontFamily = FontFamily(
                 listOf(
                     Font(resId = R.font.koulen_regular, weight = FontWeight.Normal)
                 )
-            ),
-            modifier = Modifier.padding(start = 10.dp, bottom = 10.dp)
+            )
         )
         TextField(
             value = email,
