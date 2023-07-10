@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "707587131911",
+    "project_id": "signinsignupfigmamvvm",
+    "storage_bucket": "signinsignupfigmamvvm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707587131911:android:82d2d6c8ff60b0c2e538a2",
+        "android_client_info": {
+          "package_name": "com.ronie.signinsignupfigmamvvm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707587131911-golql6pefm9shn6nr87p3bbtckvet8ou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA66ttotTtcDTpUJjmcsrxmaCc27zdgt3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707587131911-golql6pefm9shn6nr87p3bbtckvet8ou.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
