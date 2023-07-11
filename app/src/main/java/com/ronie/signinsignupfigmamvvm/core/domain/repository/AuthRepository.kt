@@ -3,7 +3,7 @@ package com.ronie.signinsignupfigmamvvm.core.domain.repository
 import com.ronie.signinsignupfigmamvvm.core.domain.model.UserModel
 
 interface AuthRepository {
-    fun startLoginRepo(
+    fun startSignInRepo(
         user: UserModel,
         isSuccess: () -> Unit,
         isFailure: (String) -> Unit

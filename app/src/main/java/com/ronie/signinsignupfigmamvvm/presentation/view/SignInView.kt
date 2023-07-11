@@ -3,7 +3,6 @@ package com.ronie.signinsignupfigmamvvm.presentation.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,10 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -47,15 +44,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ronie.signinsignupfigmamvvm.R
 import com.ronie.signinsignupfigmamvvm.core.sealed.Routes
+import com.ronie.signinsignupfigmamvvm.core.utils.AuthButton
+import com.ronie.signinsignupfigmamvvm.core.utils.AuthTextFiled
 import com.ronie.signinsignupfigmamvvm.presentation.ui.theme.Blue
 import com.ronie.signinsignupfigmamvvm.presentation.ui.theme.BlueCyan
-import com.ronie.signinsignupfigmamvvm.presentation.view_model.AuthViewModel
+import com.ronie.signinsignupfigmamvvm.presentation.view_model.SignInViewModel
 
 
 @Composable
 fun SignInView(
     navController: NavController,
-    authViewModel: AuthViewModel
+    signInViewModel: SignInViewModel
 ) {
     Column(
         modifier = Modifier
@@ -63,39 +62,38 @@ fun SignInView(
     ) {
         TopSignInSection()
         SignInSection(navController)
-        Text(
-            text = "OU",
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(20.dp))
         SocialSignInSection()
-        Box(
+        TextCreateAccount(navController)
+    }
+}
+
+
+@Composable
+fun TextCreateAccount(navController: NavController) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(1f)
+            .padding(20.dp),
+        contentAlignment = Alignment.BottomCenter
+    ) {
+        Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(1f)
-                .padding(20.dp),
-            contentAlignment = Alignment.BottomCenter
+                .clickable {
+                    navController.navigate(Routes.SignUpView.route)
+                }
         ) {
-            Row(
-                modifier = Modifier
-                    .clickable {
-                        navController.navigate(Routes.SignUpView.route)
-                    }
-            ) {
-                Text(
-                    text = "ainda não tem uma conta?",
-                    color = Color(0x50000000),
-                    modifier = Modifier.padding(5.dp)
-                )
-                Text(
-                    text = "Cadastre-se",
-                    color = Color(0x90000000),
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 5.dp, bottom = 5.dp, end = 5.dp)
-                )
-            }
+            Text(
+                text = "ainda não tem uma conta?",
+                color = Color(0x50000000),
+                modifier = Modifier.padding(5.dp)
+            )
+            Text(
+                text = "Cadastre-se",
+                color = Color(0x90000000),
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top = 5.dp, bottom = 5.dp, end = 5.dp)
+            )
         }
     }
 }
@@ -103,6 +101,13 @@ fun SignInView(
 
 @Composable
 private fun SocialSignInSection() {
+    Text(
+        text = "OU",
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = TextAlign.Center,
+        fontWeight = FontWeight.Bold
+    )
+    Spacer(modifier = Modifier.height(20.dp))
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -158,7 +163,6 @@ private fun SocialSignInSection() {
 
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun SignInSection(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -174,76 +178,22 @@ private fun SignInSection(navController: NavController) {
                 )
             )
         )
-        TextField(
+        AuthTextFiled(
             value = email,
-            colors = TextFieldDefaults.textFieldColors(
-                textColor = Color.Black,
-                containerColor = Color(0x10000000),
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = Color(0xFF000000),
-                focusedLabelColor = Color(0x80000000)
-            ),
-            onValueChange = { email = it },
             label = { Text("Email") },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email,
-            ),
-            shape = RoundedCornerShape(10.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(55.dp),
+            onValueChange = { email = it }
         )
         Spacer(modifier = Modifier.height(10.dp))
-        TextField(
+        AuthTextFiled(
             value = password,
-            colors = TextFieldDefaults.textFieldColors(
-                textColor = Color.Black,
-                containerColor = Color(0x10000000),
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = Color(0xFF000000),
-                focusedLabelColor = Color(0x80000000)
-            ),
-            onValueChange = { password = it },
             label = { Text("Senha") },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Password,
-            ),
-            shape = RoundedCornerShape(10.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(55.dp),
+            onValueChange = { password = it }
         )
         Spacer(modifier = Modifier.height(15.dp))
-        Button(
+        AuthButton(
             onClick = { /*TODO*/ },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Transparent,
-                contentColor = Color.Black
-            ),
-            shape = RoundedCornerShape(10.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(55.dp),
-            contentPadding = PaddingValues(),
             content = {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(
-                            brush = Brush.horizontalGradient(
-                                colors = listOf(
-                                    Blue,
-                                    BlueCyan
-                                )
-                            )
-                        ),
-                    content = {
-                        Text(text = "Login", color = Color.White)
-                    }
-                )
+                Text(text = "Login", color = Color.White)
             }
         )
     }

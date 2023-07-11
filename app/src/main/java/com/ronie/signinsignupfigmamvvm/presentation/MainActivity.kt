@@ -14,11 +14,16 @@ import com.ronie.signinsignupfigmamvvm.presentation.view.HomeView
 import com.ronie.signinsignupfigmamvvm.presentation.view.SignInView
 import com.ronie.signinsignupfigmamvvm.presentation.view.SignUpView
 import com.ronie.signinsignupfigmamvvm.presentation.view_model.AuthViewModel
+import com.ronie.signinsignupfigmamvvm.presentation.view_model.SignInViewModel
+import com.ronie.signinsignupfigmamvvm.presentation.view_model.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
+
+    private lateinit var signUpViewModel: SignUpViewModel
+    private lateinit var signInViewModel: SignInViewModel
     private lateinit var authViewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,17 +31,21 @@ class MainActivity : ComponentActivity() {
         setContent {
             SigninSignupFigmaMVVMTheme {
                 navController = rememberNavController()
+
                 authViewModel = hiltViewModel()
+                signUpViewModel = hiltViewModel()
+                signInViewModel = hiltViewModel()
+
                 
                 NavHost(
                     navController = navController,
                     startDestination = Routes.SignInView.route
                 ) {
                     composable(route = Routes.SignInView.route) {
-                        SignInView(navController, authViewModel)
+                        SignInView(navController, signInViewModel)
                     }
                     composable(route = Routes.SignUpView.route) {
-                        SignUpView(navController, authViewModel)
+                        SignUpView(navController, signUpViewModel)
                     }
                     composable(route = Routes.HomeView.route) {
                         HomeView(navController, authViewModel)

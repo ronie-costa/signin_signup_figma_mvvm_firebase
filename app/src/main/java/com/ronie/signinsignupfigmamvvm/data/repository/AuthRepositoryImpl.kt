@@ -10,20 +10,21 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     private val authDatabase: AuthDatabase,
 ) : AuthRepository {
-    override fun startLoginRepo(
+
+    override fun startSignInRepo(
         user: UserModel,
         isSuccess: () -> Unit,
         isFailure: (String) -> Unit
     ) {
         TODO("Not yet implemented")
     }
+
     override fun startSignUpRepo(
         user: UserModel,
         isSuccess: () -> Unit,
         isFailure: (String) -> Unit
-    ) {
-        TODO("Not yet implemented")
-    }
+    ) = authDatabase.signUpFirebaseAuth(user, isSuccess, isFailure)
+
     override fun logOut(isLogOut: (Boolean) -> Unit) {
         TODO("Not yet implemented")
     }
