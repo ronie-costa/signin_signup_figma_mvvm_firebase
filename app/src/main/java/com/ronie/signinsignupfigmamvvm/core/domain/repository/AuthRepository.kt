@@ -8,12 +8,10 @@ interface AuthRepository {
         isSuccess: () -> Unit,
         isFailure: (String) -> Unit
     )
-
     fun startSignUpRepo(
         user: UserModel,
         isSuccess: () -> Unit,
         isFailure: (String) -> Unit
     )
-
     fun logOut(isLogOut: (Boolean) -> Unit)
 }

@@ -45,20 +45,22 @@ import com.ronie.signinsignupfigmamvvm.presentation.ui.theme.Blue
 import com.ronie.signinsignupfigmamvvm.presentation.ui.theme.BlueCyan
 import com.ronie.signinsignupfigmamvvm.presentation.view_model.AuthViewModel
 
+
 @Composable
 fun SignUpView(
     navController: NavController,
     authViewModel: AuthViewModel
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        TopSignupSection()
+        TopSignupSection(navController)
         SignupSection()
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignupSection() {
+private fun SignupSection() {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -172,50 +174,50 @@ fun SignupSection() {
 
 
 @Composable
-fun TopSignupSection() {
-    Box(modifier = Modifier.fillMaxHeight(0.25f)) {
+private fun TopSignupSection(navController: NavController) {
+    Box {
         Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.3f),
             painter = painterResource(id = R.drawable.background_top),
             contentDescription = null,
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier.fillMaxWidth()
+            contentScale = ContentScale.FillBounds
         )
-        Column {
-            Box(
-                modifier = Modifier
-                    .size(50.dp)
-                    .clickable { },
-                contentAlignment = Alignment.Center,
-                content = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_arrow_back),
-                        contentDescription = null,
-                        tint = Color.White
-                    )
-                }
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.6f),
-                contentAlignment = Alignment.Center,
-                content = {
-                    Text(
-                        text = "Welcome Criar Conta",
-                        fontSize = 30.sp,
-                        color = Color.White,
-                        fontFamily = FontFamily(
-                            listOf(
-                                Font(
-                                    resId = R.font.londrina_solid_regular,
-                                    weight = FontWeight.Light
-                                )
+        Box(
+            modifier = Modifier
+                .size(50.dp)
+                .clickable { navController.popBackStack() },
+            contentAlignment = Alignment.Center,
+            content = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_arrow_back),
+                    contentDescription = null,
+                    tint = Color.White
+                )
+            }
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.25f),
+            contentAlignment = Alignment.Center,
+            content = {
+                Text(
+                    text = "Welcome Criar Conta",
+                    fontSize = 30.sp,
+                    color = Color.White,
+                    fontFamily = FontFamily(
+                        listOf(
+                            Font(
+                                resId = R.font.londrina_solid_regular,
+                                weight = FontWeight.Light
                             )
                         )
                     )
-                }
-            )
-        }
+                )
+            }
+        )
 
     }
 }

@@ -10,7 +10,6 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     private val authDatabase: AuthDatabase,
 ) : AuthRepository {
-
     override fun startLoginRepo(
         user: UserModel,
         isSuccess: () -> Unit,
@@ -18,7 +17,6 @@ class AuthRepositoryImpl @Inject constructor(
     ) {
         TODO("Not yet implemented")
     }
-
     override fun startSignUpRepo(
         user: UserModel,
         isSuccess: () -> Unit,
@@ -26,9 +24,7 @@ class AuthRepositoryImpl @Inject constructor(
     ) {
         TODO("Not yet implemented")
     }
-
     override fun logOut(isLogOut: (Boolean) -> Unit) {
         TODO("Not yet implemented")
     }
-
 }

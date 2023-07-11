@@ -16,8 +16,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -59,8 +61,8 @@ fun SignInView(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        TopSection()
-        LoginSection(navController)
+        TopSignInSection()
+        SignInSection(navController)
         Text(
             text = "OU",
             modifier = Modifier.fillMaxWidth(),
@@ -68,32 +70,39 @@ fun SignInView(
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(20.dp))
-        SocialSection()
-        Spacer(modifier = Modifier.height(20.dp))
+        SocialSignInSection()
         Box(
             modifier = Modifier
-                .padding(horizontal = 20.dp)
-                .fillMaxHeight(0.9f),
+                .fillMaxWidth()
+                .fillMaxHeight(1f)
+                .padding(20.dp),
             contentAlignment = Alignment.BottomCenter
         ) {
             Row(
-                horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { }
+                    .clickable {
+                        navController.navigate(Routes.SignUpView.route)
+                    }
             ) {
-                Text(text = "ainda não tem uma conta?", color = Color(0x50000000))
-                Spacer(modifier = Modifier.width(5.dp))
-                Text(text = "Cadastre-se", color = Color(0x90000000), fontWeight = FontWeight.Bold)
+                Text(
+                    text = "ainda não tem uma conta?",
+                    color = Color(0x50000000),
+                    modifier = Modifier.padding(5.dp)
+                )
+                Text(
+                    text = "Cadastre-se",
+                    color = Color(0x90000000),
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 5.dp, bottom = 5.dp, end = 5.dp)
+                )
             }
         }
-
     }
 }
 
 
 @Composable
-private fun SocialSection() {
+private fun SocialSignInSection() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -150,7 +159,7 @@ private fun SocialSection() {
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-private fun LoginSection(navController: NavController) {
+private fun SignInSection(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -242,7 +251,7 @@ private fun LoginSection(navController: NavController) {
 
 
 @Composable
-private fun TopSection() {
+private fun TopSignInSection() {
     Box {
         Image(
             modifier = Modifier
